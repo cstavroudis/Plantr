@@ -1,84 +1,161 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../store";
+import "materialize-css";
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
-    <div className="header">
-      <div className="header-left">
-        <img
-          id="logo"
-          src="https://static.thenounproject.com/png/1298085-200.png"
-        />
-        <h1>
-          <Link to="/">Plantr</Link>
-        </h1>
+class Navbar extends React.Component {
+  render() {
+    const { handleClick, isLoggedIn } = this.props;
+    return (
+      <div className="navbar-fixed">
+        <div className="navbar">
+          <nav>
+            <div className="nav-wrapper grey darken-4">
+              <Link to="/" className="brand-logo">
+                Plantr
+              </Link>
+              {/* <div className="header-left">
+                <img
+                  id="logo"
+                  src="https://static.thenounproject.com/png/1298085-200.png"
+                />
+                <h1>
+                  <Link to="/">Plantr</Link>
+                </h1>
+              </div> */}
+              <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+                <i className="material-icons white-text">menu</i>
+              </a>
+              {isLoggedIn ? (
+                <ul id="nav-mobile" className="right hide-on-med-and-down">
+                  {/* The navbar will show these links after you log in */}
+                  <li>
+                    <Link to="/plants">
+                      Plants
+                      {/* <div className="nav-link">
+                        <img src="https://images.vexels.com/media/users/3/181340/isolated/lists/0609b91d96796d33dfd6ee002be5e2d4-kalanchoe-plant-succulent.png" />{' '}
+                        <p>Plants</p>
+                      </div> */}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/types">
+                      Types
+                      {/* <div className="nav-link">
+                        <img src="https://static.thenounproject.com/png/489416-200.png" />
+                        <p>Types</p>
+                      </div> */}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/landlords">Landlords</Link>
+                  </li>
+                  <li>
+                    <Link to="/account">Account</Link>
+                  </li>
+                  <li>
+                    <a href="#" onClick={handleClick}>
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              ) : (
+                <ul id="nav-mobile" className="right hide-on-med-and-down">
+                  {/* The navbar will show these links before you log in */}
+                  <li>
+                    <Link to="/plants">
+                      Plants
+                      {/* <div className="nav-link">
+                        <img src="https://images.vexels.com/media/users/3/181340/isolated/lists/0609b91d96796d33dfd6ee002be5e2d4-kalanchoe-plant-succulent.png" />{' '}
+                        <p>Plants</p>
+                      </div> */}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/types">
+                      Types
+                      {/* <div className="nav-link">
+                        <img src="https://static.thenounproject.com/png/489416-200.png" />
+                        <p>Types</p>
+                      </div> */}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/login">Login</Link>
+                  </li>
+                  <li>
+                    <Link to="/signup">Sign Up</Link>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </nav>
+
+          <ul className="sidenav" id="mobile-demo">
+            <li>
+              <Link to="/plants">Plants</Link>
+            </li>
+            <li>
+              <Link to="/types">Types</Link>
+            </li>
+            {isLoggedIn && (
+              <li>
+                <a href="#" onClick={handleClick}>
+                  Logout
+                </a>
+              </li>
+            )}
+            {isLoggedIn && (
+              <li>
+                <Link to="/account">Account</Link>
+              </li>
+            )}
+            {!isLoggedIn && (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
+            {!isLoggedIn && (
+              <li>
+                <Link to="/signup">Sign Up</Link>
+              </li>
+            )}
+          </ul>
+        </div>
       </div>
-      <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/plants">
-              <div className="nav-link">
-                <img src="https://images.vexels.com/media/users/3/181340/isolated/lists/0609b91d96796d33dfd6ee002be5e2d4-kalanchoe-plant-succulent.png" />{' '}
-                <p>Plants</p>
-              </div>
-            </Link>
-            <Link to="/types">
-              <div className="nav-link">
-                <img src="https://static.thenounproject.com/png/489416-200.png" />
-                <p>Types</p>
-              </div>
-            </Link>
-            <Link to="/account">
-              <div className="nav-link">
-                <img src="https://i.pinimg.com/originals/bb/24/ae/bb24aecc2d6e5d51bf29c72acb3f1741.png" />
-                <p>Account</p>
-              </div>
-            </Link>
-            <a href="#" onClick={handleClick}>
-              <div className="nav-link">
-                <img src="https://images.vexels.com/media/users/3/202344/isolated/preview/242900d7a49739d3a909fbb7263b305d-tall-mushroom-stroke-by-vexels.png" />
-                <p>Logout</p>
-              </div>
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/plants">
-              <div className="nav-link">
-                <img src="https://images.vexels.com/media/users/3/181340/isolated/lists/0609b91d96796d33dfd6ee002be5e2d4-kalanchoe-plant-succulent.png" />
-                <p>Plants</p>
-              </div>
-            </Link>
-            <Link to="/types">
-              <div className="nav-link">
-                <img src="https://static.thenounproject.com/png/489416-200.png" />
-                <p>Types</p>
-              </div>
-            </Link>
-            <Link to="/login">
-              <div className="nav-link">
-                <img src="https://img.icons8.com/wired/2x/login-rounded-right.png" />
-                <p>Login</p>
-              </div>
-            </Link>
-            <Link to="/signup">
-              <div className="nav-link">
-                <img src="https://images.vexels.com/media/users/3/212787/isolated/lists/df52a0a9737daa1f0c5a565ff99d6529-flowery-medical-cross-symbol-outline.png" />
-                <p>Sign Up</p>
-              </div>
-            </Link>
-          </div>
-        )}
-      </nav>
-    </div>
-    <hr />
-  </div>
-)
+    );
+  }
+}
+
+// old links with icons
+//   <Link to="/account">
+//     <div className="nav-link">
+//       <img src="https://i.pinimg.com/originals/bb/24/ae/bb24aecc2d6e5d51bf29c72acb3f1741.png" />
+//       <p>Account</p>
+//     </div>
+//   </Link>
+//   <a href="#" onClick={handleClick}>
+//     <div className="nav-link">
+//       <img src="https://images.vexels.com/media/users/3/202344/isolated/preview/242900d7a49739d3a909fbb7263b305d-tall-mushroom-stroke-by-vexels.png" />
+//       <p>Logout</p>
+//     </div>
+//   </a>
+// </div>
+
+//   <Link to="/login">
+//     <div className="nav-link">
+//       <img src="https://img.icons8.com/wired/2x/login-rounded-right.png" />
+//       <p>Login</p>
+//     </div>
+//   </Link>
+//   <Link to="/signup">
+//     <div className="nav-link">
+//       <img src="https://images.vexels.com/media/users/3/212787/isolated/lists/df52a0a9737daa1f0c5a565ff99d6529-flowery-medical-cross-symbol-outline.png" />
+//       <p>Sign Up</p>
+//     </div>
+//   </Link>
 
 /**
  * CONTAINER
@@ -86,18 +163,18 @@ const Navbar = ({handleClick, isLoggedIn}) => (
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-  }
-}
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
     handleClick() {
-      dispatch(logout())
+      dispatch(logout());
     },
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(Navbar);
 
 /**
  * PROP TYPES
@@ -105,4 +182,4 @@ export default connect(mapState, mapDispatch)(Navbar)
 Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
-}
+};

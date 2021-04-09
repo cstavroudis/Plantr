@@ -1,14 +1,45 @@
-body {
+/* body {
   font-family: 'Walter Turncoat';
   margin: 0% 5% 5% 5%;
   background-color: #fdf4f1;
+} */
+
+img {
+  width: 250px;
+  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.card {
+  width: 250px;
+  /* height: 250px; */
+  max-width: 250px;
+  /* max-height: 250px; */
+}
+
+.card .card-image img {
+  width: 250px;
+  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
+  overflow: hidden;
+}
+
+.all-plants-container {
+  /* width: 250vw; */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
   text-decoration: none;
   color: #885053;
 }
-
+/*
 label {
   display: block;
 }
@@ -53,11 +84,11 @@ hr {
   color: #777da7;
 }
 
-nav a {
+/* nav a {
   display: inline-block;
   margin: 1em 1em 0em 1em;
-}
-
+} */
+/*
 form div {
   margin: 1em;
   display: inline-block;
@@ -119,6 +150,8 @@ form div {
   margin: 1vw;
   padding: 10px;
   border-radius: 20px;
+  max-width: 550px;
+  max-height: 300px;
 }
 
 .all-plants-plant a {
@@ -132,8 +165,8 @@ form div {
 }
 
 .all-plants-img {
-  width: 250px;
-  height: 300px;
+  max-width: 250px;
+  max-height: 300px;
 }
 
 .pagination {
@@ -166,18 +199,11 @@ form div {
   margin: 3%;
 }
 
-.all-plants-container {
-  width: 250vw;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .container,
 .checkout-container {
-  /*width: 250vw;*/
+  width: 250vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -188,7 +214,7 @@ form div {
 .user-home-page {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -292,3 +318,4 @@ tfoot {
   margin: 0;
   padding-bottom: 12px;
 }
+ */

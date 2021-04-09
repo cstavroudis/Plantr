@@ -1,7 +1,7 @@
 {
-  "name": "grace-shopper",
+  "name": "plantr",
   "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "An ecommerce website for plants.",
   "engines": {
     "node": "~12.11.1"
   },
@@ -38,7 +38,7 @@
       "git add"
     ]
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Calandra, Alisa, Kathleen, Jessica",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.0",
@@ -47,15 +47,16 @@
     "express": "^4.16.4",
     "express-session": "^1.15.1",
     "history": "^4.9.0",
+    "materialize-css": "^1.0.0-rc.2",
     "morgan": "^1.9.1",
     "passport": "^0.4.0",
     "passport-google-oauth": "^2.0.0",
     "pg": "^8.3.2",
     "pg-hstore": "^2.3.2",
-    "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-materialize": "^3.9.7",
     "react-redux": "^7.0.1",
     "react-router-dom": "^5.0.0",
     "react-shopping-cart": "^1.9.5",
@@ -96,6 +97,7 @@
     "mocha": "^6.1.4",
     "nodemon": "^1.18.3",
     "npm-merge-driver": "^2.3.5",
+    "prettier": "2.2.1",
     "react-test-renderer": "^16.4.2",
     "redux-devtools-extension": "^2.13.5",
     "redux-mock-store": "^1.5.3",

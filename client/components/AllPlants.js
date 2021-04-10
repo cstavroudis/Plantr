@@ -209,7 +209,6 @@ class AllPlants extends Component {
             }
           />
         </div>
-        {/* <Cart checkingOut={false} /> */}
       </div>
     );
   }

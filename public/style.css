@@ -140,6 +140,19 @@ a {
   font-weight: bolder;
 }
 
+#checkout-container {
+  display: flex;
+}
+
+#checkout-form {
+  width: 45vw;
+  margin-right: 10vw;
+}
+
+#checkout-cart-left {
+  width: auto;
+}
+
 nav ul a:hover {
   background-color: transparent;
 }
@@ -152,6 +165,15 @@ nav ul a:hover {
 
   #cart-left {
     width: auto;
+  }
+
+  #checkout-form {
+    width: 95vw;
+    margin-right: auto;
+  }
+
+  #checkout-container {
+    flex-direction: column;
   }
 }
 

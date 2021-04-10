@@ -37,14 +37,18 @@ class Cart extends PureComponent {
   }
 
   render() {
-    const cart = this.props.cart;
+    const { cart } = this.props;
+    const { checkingOut } = this.props || false;
+
     return (
-      <div className="container" id="cart">
-        <div id="cart-left">
+      <div className={checkingOut ? "" : "container"} id="cart">
+        <div id={checkingOut ? "checkout-cart-left" : "cart-left"}>
           {cart.length === 0 ? (
             <div>Cart is empty</div>
-          ) : (
+          ) : !checkingOut ? (
             <p>You have {cart.length} item(s) in your cart</p>
+          ) : (
+            ""
           )}
           {cart.map((plant) => {
             return (
@@ -149,59 +153,40 @@ class Cart extends PureComponent {
                   </Card>
                 </Col>
               </Row>
-              // <div  className="checkout-item">
-              //   <img src={plant.imageUrl} className="checkout-plant-img" />
-              //   <h2>
-              //     <Link to={`/plants/${plant.id}`}>{plant.name}</Link>
-              //   </h2>
-              //   <p>
-              //     {plant.item.quantity} @ ${plant.price}
-              //   </p>
-              //   <button
-              //     type="button"
-              //     onClick={() =>
-              //       this.props.user.id
-              //         ? this.props.deleteItem(this.props.user.id, plant.id)
-              //         : this.props.removeItemGuest(plant.id)
-              //     }
-              //   >
-              //     Remove Item
-              //   </button>
-              //
-              //   <hr />
-              // </div>
             );
           })}
         </div>
 
-        <div id="cart-right">
-          <div id="checkout-box">
-            <div id="cart-total">
-              <h5>TOTAL</h5>
-              <h6 id="cart-total-num">
-                $
-                {cart
-                  .reduce(
-                    (sum, currentPlant) =>
-                      sum + currentPlant.item.quantity * currentPlant.price,
-                    0
-                  )
-                  .toFixed(2)}
-              </h6>
-            </div>
+        {!checkingOut && (
+          <div id="cart-right">
+            <div id="checkout-box">
+              <div id="cart-total">
+                <h5>TOTAL</h5>
+                <h6 id="cart-total-num">
+                  $
+                  {cart
+                    .reduce(
+                      (sum, currentPlant) =>
+                        sum + currentPlant.item.quantity * currentPlant.price,
+                      0
+                    )
+                    .toFixed(2)}
+                </h6>
+              </div>
 
-            <div>
-              <Button
-                type="button"
-                id="checkout-btn"
-                onClick={this.handleSubmit}
-              >
-                {" "}
-                Checkout{" "}
-              </Button>
+              <div>
+                <Button
+                  type="button"
+                  id="checkout-btn"
+                  onClick={this.handleSubmit}
+                >
+                  {" "}
+                  Checkout{" "}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

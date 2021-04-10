@@ -2,10 +2,23 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addPlant, addPlantGuest } from "../store/cartReducer";
-import { fetchPlants, deletePlant } from "../store/allPlantsReducer";
+import {
+  fetchPlants,
+  deletePlant,
+  filterPlants,
+} from "../store/allPlantsReducer";
 import { getTypes } from "../store/typesReducer";
 import Cart from "./Cart";
-import { Col, Row, Icon, Card, CardTitle, Button } from "react-materialize";
+import {
+  Col,
+  Row,
+  Icon,
+  Card,
+  CardTitle,
+  Button,
+  Pagination,
+} from "react-materialize";
+import { Multiselect } from "multiselect-react-dropdown";
 
 // COMPONENT
 
@@ -13,15 +26,49 @@ class AllPlants extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filter: "all",
+      order: "",
+      filters: [],
+      // orderArray: [
+      //   { label: "Grade", key: "grade" },
+      //   { label: "Kindness", key: "kindness" },
+      //   { label: "Maintenance", key: "maintenance" },
+      //   { label: "Responsiveness", key: "responsiveness" },
+      //   { label: "Pest Control", key: "pest-control" },
+      //   { label: "Most Reviews", key: "most-reviews" },
+      //   { label: "Least Reviews", key: "least-reviews" },
+      // ],
+      filterArray: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.handlePage = this.handlePage.bind(this);
+    this.handleFilterSelect = this.handleFilterSelect.bind(this);
+    this.handleOrderSelect = this.handleOrderSelect.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
   }
 
-  componentDidMount() {
-    this.props.fetchPlants(this.props.pageNum);
-    this.props.getTypes();
+  async componentDidMount() {
+    this.props.fetchPlants(0);
+    await this.props.getTypes();
+    const typeFilters = await this.props.types.map((type) => {
+      return { label: type.name, cat: "Type", key: type.name };
+    });
+    this.setState({ filterArray: typeFilters });
+  }
+
+  async handleOrderSelect(selectedList, selectedItem) {
+    await this.setState({ order: selectedItem.key });
+    this.props.filter(this.state.order, this.state.filters);
+  }
+
+  async handleFilterSelect(selectedList, selectedItem) {
+    await this.setState({ filters: selectedList.map((filter) => filter.key) });
+    this.props.filter(this.state.order, this.state.filters);
+  }
+
+  async handleRemove(selectedList, removedItem) {
+    await this.setState({ filters: selectedList.map((filter) => filter.key) });
+    this.props.filter(this.state.order, this.state.filters);
   }
 
   handleChange(event) {
@@ -32,7 +79,12 @@ class AllPlants extends Component {
     this.props.history.push("/add-plant");
   }
 
+  handlePage(event) {
+    this.props.fetchPlants(event);
+  }
+
   render() {
+    console.log("props:", this.props);
     const plants = this.props.plants.filter((plant) => {
       if (this.state.filter !== "all") {
         return plant.type.name === this.state.filter;
@@ -43,20 +95,42 @@ class AllPlants extends Component {
     return (
       <div>
         <h1>Plants</h1>
-        <span className="filter">
-          <label htmlFor="filter">Filter: </label>
-          <select
-            onChange={this.handleChange}
-            value={this.state.filter}
-            name="filter"
-          >
-            <option>all</option>
-            {this.props.types.map((type) => {
-              return <option key={type.id}>{type.name}</option>;
-            })}
-          </select>
-        </span>
+
         <div className="view">
+          <div id="order-filter">
+            <Multiselect
+              id="1"
+              options={this.state.orderArray}
+              singleSelect
+              displayValue="label"
+              onSelect={this.handleOrderSelect}
+              placeholder="Sort"
+              style={{
+                searchBox: {
+                  border: "none",
+                  borderRadius: "0px",
+                },
+              }}
+            />
+            <Multiselect
+              id="2"
+              options={this.state.filterArray}
+              groupBy="cat"
+              displayValue="label"
+              showCheckbox={true}
+              onSelect={this.handleFilterSelect}
+              onRemove={this.handleRemove}
+              closeOnSelect={false}
+              placeholder="Filter"
+              closeIcon="cancel"
+              style={{
+                searchBox: {
+                  border: "none",
+                  borderRadius: "0px",
+                },
+              }}
+            />
+          </div>
           {this.props.user.isAdmin && (
             <Button
               className="red"
@@ -77,12 +151,12 @@ class AllPlants extends Component {
             {plants.map((plant) => {
               return (
                 <Row key={plant.id} className="all-plants-plant">
-                  <Col m={6} s={12}>
+                  <Col m={8} s={10}>
                     <Card
                       actions={[
                         <span key="2">
                           {plant.inventory < 1 ? (
-                            <h3>Sold Out</h3>
+                            <div>Sold Out</div>
                           ) : (
                             <Button
                               node="button"
@@ -140,28 +214,17 @@ class AllPlants extends Component {
               );
             })}
           </div>
+          <Pagination
+            activePage={1}
+            items={3}
+            leftBtn={<Icon>chevron_left</Icon>}
+            maxButtons={8}
+            rightBtn={<Icon>chevron_right</Icon>}
+            onSelect={(event) => this.props.fetchPlants(event - 1)}
+          />
         </div>
+        {/* <Cart checkingOut={false} /> */}
       </div>
-
-      //
-      //     </div>
-      //     <Cart checkingOut={false} />
-      //   </div>
-      //   <div className="pagination">
-      //     <button
-      //       style={{
-      //         visibility: this.props.pageNum === 0 ? 'hidden' : 'visible',
-      //       }}
-      //       type="button"
-      //       onClick={() => this.props.fetchPlants(this.props.pageNum - 1)}
-      //     >{`Prev: ${this.props.pageNum}`}</button>
-      //     <p>{`${this.props.pageNum + 1}`}</p>
-      //     <button
-      //       type="button"
-      //       onClick={() => this.props.fetchPlants(this.props.pageNum + 1)}
-      //     >{`Next: ${this.props.pageNum + 2}`}</button>
-      //   </div>
-      // </div>
     );
   }
 }
@@ -170,7 +233,6 @@ const mapState = (state) => {
   return {
     plants: state.plants.all,
     user: state.user,
-    pageNum: state.plants.pageNum,
     types: state.types.all,
   };
 };
@@ -182,6 +244,7 @@ const mapDispatch = (dispatch) => {
     deletePlant: (plantId) => dispatch(deletePlant(plantId)),
     addPlantGuest: (plant) => dispatch(addPlantGuest(plant)),
     getTypes: () => dispatch(getTypes()),
+    filter: (order, filters) => dispatch(filterPlants(order, filters)),
   };
 };
 

@@ -1,5 +1,7 @@
 const router = require("express").Router();
+const { filter } = require("compression");
 const { Plant, Type } = require("../db/models");
+const { Op } = require("sequelize");
 const adminsOnly = require("../utils/adminsOnly");
 module.exports = router;
 
@@ -14,18 +16,38 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// GET api/plants/
+// GET api/plants/page/:pageNum
 router.get("/page/:pageNum", async (req, res, next) => {
   try {
-    let pageNum = req.params.pageNum;
-    const plants = await Plant.findAll({
-      limit: 12,
-      offset: 12 * pageNum,
-      include: Type,
-    });
+    let pageNum = req.params.pageNum || 0;
+    let filters = req.query.filters;
+    if (filters && filters.length === 1) filters = [Number(req.query.filters)];
+    if (filters && filters.length > 1)
+      filters = filters.split(",").map((id) => Number(id));
+
+    let plants;
+    if (filters) {
+      plants = await Plant.findAll({
+        limit: 12,
+        offset: 12 * pageNum,
+        include: Type,
+        where: {
+          typeId: {
+            [Op.or]: filters,
+          },
+        },
+      });
+    } else {
+      plants = await Plant.findAll({
+        limit: 12,
+        offset: 12 * pageNum,
+        include: Type,
+      });
+    }
     res.json(plants);
   } catch (e) {
     next(e);
+    console.log("there was an error in GET api/plants/page/:pageNum");
   }
 });
 
@@ -45,7 +67,6 @@ router.get(`/types/:id`, async (req, res, next) => {
   try {
     const id = +req.params.id;
     const type = await Type.findByPk(id);
-    console.log("type", type);
     res.json(type);
   } catch (error) {
     next(error);

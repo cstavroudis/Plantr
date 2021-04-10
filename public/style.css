@@ -36,9 +36,31 @@ img {
   margin: 0em 5vw;
 }
 
+#order-filter {
+  width: 550px;
+  margin-left: 1em;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+
 a {
   text-decoration: none;
   color: #885053;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) {
+  #order-filter {
+    flex-direction: column;
+    width: 300px;
+  }
+}
+
+@media only screen and (min-width: 990px) and (max-width: 1300px) {
+  #order-filter {
+    flex-direction: column;
+    width: 300px;
+  }
 }
 /*
 label {

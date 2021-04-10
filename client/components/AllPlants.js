@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addPlant, addPlantGuest } from "../store/cartReducer";
-import {
-  fetchPlants,
-  deletePlant,
-  filterPlants,
-} from "../store/allPlantsReducer";
+import { fetchPlants, deletePlant } from "../store/allPlantsReducer";
 import { getTypes } from "../store/typesReducer";
 import Cart from "./Cart";
 import {
@@ -20,23 +16,17 @@ import {
 } from "react-materialize";
 import { Multiselect } from "multiselect-react-dropdown";
 
-// COMPONENT
+const calculatePages = (length) => {
+  if (length <= 12) return 1;
+  if (length >= 24 && length > 12) return 2;
+  if (length > 24) return 3;
+};
 
 class AllPlants extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      order: "",
       filters: [],
-      // orderArray: [
-      //   { label: "Grade", key: "grade" },
-      //   { label: "Kindness", key: "kindness" },
-      //   { label: "Maintenance", key: "maintenance" },
-      //   { label: "Responsiveness", key: "responsiveness" },
-      //   { label: "Pest Control", key: "pest-control" },
-      //   { label: "Most Reviews", key: "most-reviews" },
-      //   { label: "Least Reviews", key: "least-reviews" },
-      // ],
       filterArray: [],
     };
     this.handleChange = this.handleChange.bind(this);
@@ -48,10 +38,10 @@ class AllPlants extends Component {
   }
 
   async componentDidMount() {
-    this.props.fetchPlants(0);
+    await this.props.fetchPlants(0, []);
     await this.props.getTypes();
     const typeFilters = await this.props.types.map((type) => {
-      return { label: type.name, cat: "Type", key: type.name };
+      return { label: type.name, cat: "Type", key: type.id };
     });
     this.setState({ filterArray: typeFilters });
   }
@@ -63,12 +53,13 @@ class AllPlants extends Component {
 
   async handleFilterSelect(selectedList, selectedItem) {
     await this.setState({ filters: selectedList.map((filter) => filter.key) });
-    this.props.filter(this.state.order, this.state.filters);
+    console.log("fetcching plants with filters:", this.state.filters);
+    await this.props.fetchPlants(0, this.state.filters);
   }
 
   async handleRemove(selectedList, removedItem) {
     await this.setState({ filters: selectedList.map((filter) => filter.key) });
-    this.props.filter(this.state.order, this.state.filters);
+    this.props.fetchPlants(0, this.state.filters);
   }
 
   handleChange(event) {
@@ -80,17 +71,12 @@ class AllPlants extends Component {
   }
 
   handlePage(event) {
-    this.props.fetchPlants(event);
+    this.props.fetchPlants(event, this.state.filters);
   }
 
   render() {
-    console.log("props:", this.props);
-    const plants = this.props.plants.filter((plant) => {
-      if (this.state.filter !== "all") {
-        return plant.type.name === this.state.filter;
-      }
-      return plant;
-    });
+    const { plants } = this.props || [];
+    let numPages = calculatePages(plants.length);
 
     return (
       <div>
@@ -98,7 +84,7 @@ class AllPlants extends Component {
 
         <div className="view">
           <div id="order-filter">
-            <Multiselect
+            {/* <Multiselect
               id="1"
               options={this.state.orderArray}
               singleSelect
@@ -111,7 +97,7 @@ class AllPlants extends Component {
                   borderRadius: "0px",
                 },
               }}
-            />
+            /> */}
             <Multiselect
               id="2"
               options={this.state.filterArray}
@@ -121,7 +107,7 @@ class AllPlants extends Component {
               onSelect={this.handleFilterSelect}
               onRemove={this.handleRemove}
               closeOnSelect={false}
-              placeholder="Filter"
+              placeholder="Filter By Type"
               closeIcon="cancel"
               style={{
                 searchBox: {
@@ -216,11 +202,13 @@ class AllPlants extends Component {
           </div>
           <Pagination
             activePage={1}
-            items={3}
+            items={numPages}
             leftBtn={<Icon>chevron_left</Icon>}
             maxButtons={8}
             rightBtn={<Icon>chevron_right</Icon>}
-            onSelect={(event) => this.props.fetchPlants(event - 1)}
+            onSelect={(event) =>
+              this.props.fetchPlants(event - 1, this.state.filters)
+            }
           />
         </div>
         {/* <Cart checkingOut={false} /> */}
@@ -239,7 +227,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchPlants: (pageNum) => dispatch(fetchPlants(pageNum)),
+    fetchPlants: (pageNum, filters) => dispatch(fetchPlants(pageNum, filters)),
     addPlant: (userId, plantId) => dispatch(addPlant(userId, plantId)),
     deletePlant: (plantId) => dispatch(deletePlant(plantId)),
     addPlantGuest: (plant) => dispatch(addPlantGuest(plant)),

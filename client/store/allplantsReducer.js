@@ -49,10 +49,12 @@ export const fetchPlantsAll = () => {
   };
 };
 
-export const fetchPlants = (pageNum) => {
+export const fetchPlants = (pageNum, filters) => {
   return async (dispatch) => {
     try {
-      const { data: plants } = await axios.get(`/api/plants/page/${pageNum}`);
+      const { data: plants } = await axios.get(
+        `/api/plants/page/${pageNum}?filters=${filters}`
+      );
       dispatch(setPlants(plants, pageNum));
     } catch (error) {
       console.log("Error in fetching plants");
@@ -102,8 +104,6 @@ const plantsReducer = (state = initialState, action) => {
         ...state,
         all: state.all.filter((plant) => plant.id !== action.plant.id),
       };
-    case SET_PLANTS_ALL_ACTION:
-      return { ...state, all: action.plants };
     default:
       return state;
   }

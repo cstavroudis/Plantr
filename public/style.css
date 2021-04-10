@@ -37,7 +37,7 @@ img {
 }
 
 #order-filter {
-  width: 550px;
+  width: 300px;
   margin-left: 1em;
   display: flex;
   justify-content: space-between;
@@ -47,6 +47,19 @@ img {
 a {
   text-decoration: none;
   color: #885053;
+}
+
+#name,
+#email {
+  width: 300px;
+}
+
+#message {
+  max-width: 700px;
+}
+
+.contact-us {
+  margin-top: 70px;
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) {

@@ -1,46 +1,32 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchPlant, editPlant} from '../store/singlePlantReducer'
-import {addPlant} from '../store/cartReducer'
-import {getTypes} from '../store/typesReducer'
-import Cart from './Cart'
-
-// COMPONENT
-
-const initialState = {
-  name: '',
-  imageUrl: '',
-  description: '',
-  inventory: '',
-  price: '',
-  light: '',
-  water: '',
-  humidity: '',
-  type: '',
-}
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchPlant, editPlant } from "../store/singlePlantReducer";
+import { addPlant } from "../store/cartReducer";
+import { getTypes } from "../store/typesReducer";
+import Cart from "./Cart";
 
 class SinglePlant extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      name: '',
-      imageUrl: '',
-      description: '',
+      name: "",
+      imageUrl: "",
+      description: "",
       inventory: 0,
       price: 0,
-      light: '',
-      water: '',
-      humidity: '',
+      light: "",
+      water: "",
+      humidity: "",
       // type: '',
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
-    const id = this.props.match.params.id
-    await this.props.fetchPlant(id)
-    await this.props.getTypes()
+    const id = this.props.match.params.id;
+    await this.props.fetchPlant(id);
+    await this.props.getTypes();
     await this.setState({
       name: this.props.plant.name,
       imageUrl: this.props.plant.imageUrl,
@@ -50,15 +36,15 @@ class SinglePlant extends Component {
       light: this.props.plant.light,
       water: this.props.plant.water,
       humidity: this.props.plant.humidity,
-    })
+    });
   }
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
     // const typeId = this.props.types.filter(
     //   (type) => type.name === this.state.type
     // )[0].id
@@ -72,12 +58,12 @@ class SinglePlant extends Component {
     //   }
     // }
     // this.props.editPlant(this.props.plant.id, editedFields)
-    this.props.editPlant(this.props.plant.id, this.state)
+    this.props.editPlant(this.props.plant.id, this.state);
   }
 
   render() {
-    const plant = this.props.plant
-    const user = this.props.user
+    const plant = this.props.plant;
+    const user = this.props.user;
     return (
       <div className="single-plant">
         <div className="plant-user-view">
@@ -96,8 +82,8 @@ class SinglePlant extends Component {
                 type="button"
                 onClick={() => this.props.addPlant(user.id, plant.id)}
               >
-                {' '}
-                ADD TO CART{' '}
+                {" "}
+                ADD TO CART{" "}
               </button>
             </div>
           </div>
@@ -194,7 +180,7 @@ class SinglePlant extends Component {
                   name="type"
                 >
                   {this.props.types.map((type) => {
-                    return <option key={type.id}>{type.name}</option>
+                    return <option key={type.id}>{type.name}</option>;
                   })}
                 </select>
               </div>
@@ -206,7 +192,7 @@ class SinglePlant extends Component {
         )}
         <Cart checkingOut={false} />
       </div>
-    )
+    );
   }
 }
 
@@ -215,8 +201,8 @@ const mapState = (state) => {
     user: state.user,
     plant: state.plant.single,
     types: state.types.all,
-  }
-}
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
@@ -224,7 +210,7 @@ const mapDispatch = (dispatch) => {
     addPlant: (userId, plantId) => dispatch(addPlant(userId, plantId)),
     editPlant: (plantId, plant) => dispatch(editPlant(plantId, plant)),
     getTypes: () => dispatch(getTypes()),
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(SinglePlant)
+export default connect(mapState, mapDispatch)(SinglePlant);

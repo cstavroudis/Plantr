@@ -15,12 +15,6 @@ import {
 } from "react-materialize";
 import { Multiselect } from "multiselect-react-dropdown";
 
-const calculatePages = (length) => {
-  if (length <= 12) return 1;
-  if (length >= 24 && length > 12) return 2;
-  if (length > 24) return 3;
-};
-
 class AllPlants extends Component {
   constructor(props) {
     super(props);
@@ -74,7 +68,6 @@ class AllPlants extends Component {
 
   render() {
     const { plants } = this.props || [];
-    let numPages = calculatePages(plants.length);
 
     return (
       <div>
@@ -82,20 +75,6 @@ class AllPlants extends Component {
 
         <div className="view">
           <div id="order-filter">
-            {/* <Multiselect
-              id="1"
-              options={this.state.orderArray}
-              singleSelect
-              displayValue="label"
-              onSelect={this.handleOrderSelect}
-              placeholder="Sort"
-              style={{
-                searchBox: {
-                  border: "none",
-                  borderRadius: "0px",
-                },
-              }}
-            /> */}
             <Multiselect
               id="2"
               options={this.state.filterArray}
@@ -200,7 +179,7 @@ class AllPlants extends Component {
           </div>
           <Pagination
             activePage={1}
-            items={numPages}
+            items={2}
             leftBtn={<Icon>chevron_left</Icon>}
             maxButtons={8}
             rightBtn={<Icon>chevron_right</Icon>}

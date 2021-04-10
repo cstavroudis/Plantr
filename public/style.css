@@ -26,6 +26,10 @@ img {
   /* max-height: 250px; */
 }
 
+.all-plants-plant {
+  margin: 1em;
+}
+
 .card .card-image img {
   width: 250px;
   height: 250px;

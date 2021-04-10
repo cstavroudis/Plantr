@@ -24,15 +24,7 @@ class Navbar extends React.Component {
               <Link to="/" className="brand-logo">
                 Plantr
               </Link>
-              {/* <div className="header-left">
-                <img
-                  id="logo"
-                  src="https://static.thenounproject.com/png/1298085-200.png"
-                />
-                <h1>
-                  <Link to="/">Plantr</Link>
-                </h1>
-              </div> */}
+
               <a href="#" data-target="mobile-demo" className="sidenav-trigger">
                 <i className="material-icons white-text">menu</i>
               </a>
@@ -40,22 +32,10 @@ class Navbar extends React.Component {
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                   {/* The navbar will show these links after you log in */}
                   <li>
-                    <Link to="/plants">
-                      Plants
-                      {/* <div className="nav-link">
-                        <img src="https://images.vexels.com/media/users/3/181340/isolated/lists/0609b91d96796d33dfd6ee002be5e2d4-kalanchoe-plant-succulent.png" />{' '}
-                        <p>Plants</p>
-                      </div> */}
-                    </Link>
+                    <Link to="/plants">Plants</Link>
                   </li>
                   <li>
-                    <Link to="/types">
-                      Types
-                      {/* <div className="nav-link">
-                        <img src="https://static.thenounproject.com/png/489416-200.png" />
-                        <p>Types</p>
-                      </div> */}
-                    </Link>
+                    <Link to="/types">Types</Link>
                   </li>
                   <li>
                     <Link to="/account">Account</Link>
@@ -81,22 +61,10 @@ class Navbar extends React.Component {
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                   {/* The navbar will show these links before you log in */}
                   <li>
-                    <Link to="/plants">
-                      Plants
-                      {/* <div className="nav-link">
-                        <img src="https://images.vexels.com/media/users/3/181340/isolated/lists/0609b91d96796d33dfd6ee002be5e2d4-kalanchoe-plant-succulent.png" />{' '}
-                        <p>Plants</p>
-                      </div> */}
-                    </Link>
+                    <Link to="/plants">Plants</Link>
                   </li>
                   <li>
-                    <Link to="/types">
-                      Types
-                      {/* <div className="nav-link">
-                        <img src="https://static.thenounproject.com/png/489416-200.png" />
-                        <p>Types</p>
-                      </div> */}
-                    </Link>
+                    <Link to="/types">Types</Link>
                   </li>
                   <li>
                     <Link to="/login">Login</Link>

@@ -19,11 +19,11 @@ class Types extends Component {
           return (
             <Row key={type.id}>
               <Col m={12} s={12}>
-                <CardPanel className="indigo lighten-4">
+                <CardPanel className="deep-purple lighten-5">
                   <Link to={`/plants/types/${type.id}`}>
                     <h3>{type.name}</h3>
                   </Link>
-                  <span className="white-text">{type.description}</span>
+                  <span>{type.description}</span>
                 </CardPanel>
               </Col>
             </Row>

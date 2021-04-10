@@ -3,11 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
+import { fetchCart } from "../store/cartReducer";
 import "materialize-css";
 
 class Navbar extends React.Component {
+  componentDidMount() {
+    const userId = this.props.user.id;
+    if (userId) {
+      this.props.fetchCart(userId);
+    }
+  }
   render() {
     const { handleClick, isLoggedIn } = this.props;
+    const { cart } = this.props || [];
     return (
       <div className="navbar-fixed">
         <div className="navbar">
@@ -56,6 +64,17 @@ class Navbar extends React.Component {
                     <a href="#" onClick={handleClick}>
                       Logout
                     </a>
+                  </li>
+                  <li>
+                    <Link to="/cart">
+                      <button type="button" id="cart-btn">
+                        <img
+                          id="cart-img"
+                          src="https://i.imgur.com/XET9X5C.png"
+                        />
+                      </button>
+                      <span id="cart-count">{cart.length}</span>
+                    </Link>
                   </li>
                 </ul>
               ) : (
@@ -159,7 +178,9 @@ class Navbar extends React.Component {
  */
 const mapState = (state) => {
   return {
+    user: state.user,
     isLoggedIn: !!state.user.id,
+    cart: state.cart.active,
   };
 };
 
@@ -168,6 +189,7 @@ const mapDispatch = (dispatch) => {
     handleClick() {
       dispatch(logout());
     },
+    fetchCart: (id) => dispatch(fetchCart(id)),
   };
 };
 

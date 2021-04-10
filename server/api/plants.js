@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const { filter } = require("compression");
 const { Plant, Type } = require("../db/models");
 const { Op } = require("sequelize");
 const adminsOnly = require("../utils/adminsOnly");

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import ContactForm from "./ContactForm";
 import { fetchOrders } from "../store/accountReducer";
-import { Tabs, Tab, Table, TextInput, Select } from "react-materialize";
+import { Table } from "react-materialize";
 
 /**
  * COMPONENT

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { addPlant, addPlantGuest } from "../store/cartReducer";
 import { fetchPlants, deletePlant } from "../store/allPlantsReducer";
 import { getTypes } from "../store/typesReducer";
-import Cart from "./Cart";
 import {
   Col,
   Row,
@@ -231,7 +230,6 @@ const mapDispatch = (dispatch) => {
     deletePlant: (plantId) => dispatch(deletePlant(plantId)),
     addPlantGuest: (plant) => dispatch(addPlantGuest(plant)),
     getTypes: () => dispatch(getTypes()),
-    filter: (order, filters) => dispatch(filterPlants(order, filters)),
   };
 };
 

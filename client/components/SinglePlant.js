@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import { fetchPlant, editPlant } from "../store/singlePlantReducer";
 import { addPlant } from "../store/cartReducer";
 import { getTypes } from "../store/typesReducer";
-import Cart from "./Cart";
+import { Link } from "react-router-dom";
+import { Button } from "react-materialize";
+// import Cart from "./Cart";
 
 class SinglePlant extends Component {
   constructor(props) {
@@ -17,7 +19,6 @@ class SinglePlant extends Component {
       light: "",
       water: "",
       humidity: "",
-      // type: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,46 +46,49 @@ class SinglePlant extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // const typeId = this.props.types.filter(
-    //   (type) => type.name === this.state.type
-    // )[0].id
-    // const editedFields = {}
-    // for (let key in this.state) {
-    //   if (
-    //     this.state[key] !== this.props.plant[key] &&
-    //     this.state[key].length > 0
-    //   ) {
-    //     editedFields[key] = this.state[key]
-    //   }
-    // }
-    // this.props.editPlant(this.props.plant.id, editedFields)
     this.props.editPlant(this.props.plant.id, this.state);
   }
 
   render() {
     const plant = this.props.plant;
+    // const type = plant.type ? plant.type.name || "";
+    let type;
+    if (plant.type) type = plant.type.name;
+    else type = "";
     const user = this.props.user;
+
     return (
-      <div className="single-plant">
+      <div className="container">
         <div className="plant-user-view">
           <img src={plant.imageUrl} className="single-plant-img" />
           <div>
-            <h2>{plant.name}</h2>
-            {/* <p>{plant.type.name}</p> */}
-            <p>${plant.price}</p>
-            <p>{plant.description}</p>
-            <div className="care-instructions">
-              Care Instructions:
-              <p>Sunlight: {plant.light}</p>
+            <h3>{plant.name}</h3>
+            <Link to={`/types/${plant.typeId}`}>
+              <h5>{type}</h5>
+            </Link>
+            <h5>${plant.price}</h5>
+            <Button
+              node="button"
+              style={{
+                marginRight: "5px",
+              }}
+              waves="light"
+              onClick={() => this.props.addPlant(user.id, plant.id)}
+            >
+              ADD TO CART
+            </Button>
+            <h2> </h2>
+            <div className="divider"></div>
+            <div className="section">
+              <h5>About...</h5>
+              <p>{plant.description}</p>
+            </div>
+
+            <div className="divider"></div>
+            <div className="section">
+              <h5>Care...</h5>
+              <p>Light: {plant.light}</p>
               <p>Water: {plant.water}</p>
-              <p>Humidity: {plant.humidity}</p>
-              <button
-                type="button"
-                onClick={() => this.props.addPlant(user.id, plant.id)}
-              >
-                {" "}
-                ADD TO CART{" "}
-              </button>
             </div>
           </div>
         </div>
@@ -179,8 +183,8 @@ class SinglePlant extends Component {
                   value={this.state.type}
                   name="type"
                 >
-                  {this.props.types.map((type) => {
-                    return <option key={type.id}>{type.name}</option>;
+                  {this.props.types.map((thisType) => {
+                    return <option key={thisType.id}>{thisType.name}</option>;
                   })}
                 </select>
               </div>
@@ -190,7 +194,7 @@ class SinglePlant extends Component {
             </form>
           </div>
         )}
-        <Cart checkingOut={false} />
+        {/* <Cart checkingOut={false} /> */}
       </div>
     );
   }

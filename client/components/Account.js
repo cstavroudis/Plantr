@@ -15,12 +15,13 @@ class Account extends React.Component {
 
   render() {
     const user = this.props.user;
+    const name = user.name ? user.name : "";
     const orders = this.props.orders;
 
     return (
       <div className="container">
-        {user.name.length > 0 ? (
-          <h3>Welcome, {user.name}!</h3>
+        {name.length > 0 ? (
+          <h3>Welcome, {name}!</h3>
         ) : (
           <h3>Welcome, {user.email}!</h3>
         )}

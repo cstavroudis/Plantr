@@ -161,6 +161,12 @@ a {
   width: auto;
 }
 
+#confirmation-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 nav ul a:hover {
   background-color: transparent;
 }

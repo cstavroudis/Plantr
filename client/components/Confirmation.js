@@ -1,67 +1,46 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {fetchConfirmedCart} from '../store/cartReducer'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { fetchConfirmedCart } from "../store/cartReducer";
+import { Button } from "react-materialize";
+import { Link } from "react-router-dom";
 
 class Confirmation extends Component {
   componentDidMount() {
-    console.log('in component did mount')
-    let userId
+    let userId;
     if (this.props.user.id) {
-      userId = this.props.user.id
+      userId = this.props.user.id;
     } else {
-      userId = null
+      userId = null;
     }
-    console.log('userId in Confirmation:', userId)
-    this.props.fetchConfirmedCart(userId)
+    this.props.fetchConfirmedCart(userId);
   }
 
   render() {
-    console.log('this.props.order', this.props.order)
-    const order = this.props.order.order
-    console.log('order in render:', order)
-    const plants = this.props.order.plants
-    console.log('plants of order:', plants)
-    // console.log(`orderId: ${order.orderId}, shippingAddress: ${order.shippingAddress}`)
-    // plants.forEach(plant => console.log('plant: ', plant))
+    let orderId = "";
+    if (this.props.order.order) {
+      orderId = this.props.order.order.orderId;
+    }
+
     return (
-      <div>
-        <h2>✅ Thank you for your order!</h2>
-        {/* {order && (<p>Order Number: {order.orderId}</p>)} */}
-        {/*<p>Shipped To: {order.shippingAddress}</p>
-        <div className="cart">
-          {plants.map(plant => {
-            return (
-              <div key={plant.id} className="checkout-item">
-                <h3>{plant.name}</h3>
-                <img src={plant.imageUrl} className="checkout-plant-img" />
-                <p>
-                  ${Number(plant.price)} X {plant.item.quantity}
-                </p>
-              </div>
-            )
-          })} */}
-        {/* <div>
-              Total: $0
-              Total: ${cart.reduce((plant, total) => {
-                total+=({plant.price}*{plant.item.quantity})
-                  return total
-                }, 0)}
-            </div> */}
-        {/* </div> */}
+      <div className="container" id="confirmation-page">
+        <h3>✅ Thank you for your order!</h3>
+        <h5>Order Number: {orderId}</h5>
+        <Button>
+          <Link to="/plants">{"< "}Continue Shopping</Link>
+        </Button>
       </div>
-    )
+    );
   }
 }
 const mapState = (state) => {
-  console.log('state in mapState:', state)
   return {
     user: state.user,
     order: state.cart.order,
-  }
-}
+  };
+};
 const mapDispatch = (dispatch) => {
   return {
     fetchConfirmedCart: (userId) => dispatch(fetchConfirmedCart(userId)),
-  }
-}
-export default connect(mapState, mapDispatch)(Confirmation)
+  };
+};
+export default connect(mapState, mapDispatch)(Confirmation);

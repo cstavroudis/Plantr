@@ -1,49 +1,49 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {getTypes} from '../store/typesReducer'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getTypes } from "../store/typesReducer";
+import { Col, Row, CardPanel } from "react-materialize";
 
 class Types extends Component {
   componentDidMount() {
-    this.props.getTypes()
+    this.props.getTypes();
   }
 
   render() {
-    const types = this.props.types
+    const types = this.props.types;
 
     return (
-      <div>
+      <div className="container">
         <h1>Types</h1>
         {types.map((type) => {
           return (
-            <div key={type.id}>
-              <Link to={`/plants/types/${type.id}`}>
-                <h2 key={type.name} className="type">
-                  {type.name}
-                </h2>
-              </Link>
-
-              <p key={type.description} className="type">
-                {type.description}
-              </p>
-            </div>
-          )
+            <Row key={type.id}>
+              <Col m={12} s={12}>
+                <CardPanel className="indigo lighten-4">
+                  <Link to={`/plants/types/${type.id}`}>
+                    <h3>{type.name}</h3>
+                  </Link>
+                  <span className="white-text">{type.description}</span>
+                </CardPanel>
+              </Col>
+            </Row>
+          );
         })}
       </div>
-    )
+    );
   }
 }
 
 const mapState = (state) => {
   return {
     types: state.types.all,
-  }
-}
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
     getTypes: () => dispatch(getTypes()),
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(Types)
+export default connect(mapState, mapDispatch)(Types);

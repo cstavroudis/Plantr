@@ -66,7 +66,12 @@ router.get("/types", async (req, res, next) => {
 router.get(`/types/:id`, async (req, res, next) => {
   try {
     const id = +req.params.id;
-    const type = await Type.findByPk(id);
+    const type = await Type.findOne({
+      where: {
+        id: id,
+      },
+      include: Plant,
+    });
     res.json(type);
   } catch (error) {
     next(error);

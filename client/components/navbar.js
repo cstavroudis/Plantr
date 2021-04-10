@@ -50,9 +50,6 @@ class Navbar extends React.Component {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/landlords">Landlords</Link>
-                  </li>
-                  <li>
                     <Link to="/account">Account</Link>
                   </li>
                   <li>

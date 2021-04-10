@@ -53,7 +53,6 @@ class AllPlants extends Component {
 
   async handleFilterSelect(selectedList, selectedItem) {
     await this.setState({ filters: selectedList.map((filter) => filter.key) });
-    console.log("fetcching plants with filters:", this.state.filters);
     await this.props.fetchPlants(0, this.state.filters);
   }
 
@@ -107,7 +106,7 @@ class AllPlants extends Component {
               onSelect={this.handleFilterSelect}
               onRemove={this.handleRemove}
               closeOnSelect={false}
-              placeholder="Filter By Type"
+              placeholder="Filter"
               closeIcon="cancel"
               style={{
                 searchBox: {
@@ -186,7 +185,7 @@ class AllPlants extends Component {
                           // className="all-plants-img"
                           image={plant.imageUrl}
                         >
-                          <Link key="1" to={`/plants/types/${plant.type.id}`}>
+                          <Link key="1" to={`/plants/${plant.id}`}>
                             {plant.name}
                           </Link>
                         </CardTitle>

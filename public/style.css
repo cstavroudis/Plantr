@@ -11,6 +11,25 @@ img {
   max-height: 250px;
 }
 
+h1 {
+  margin-left: 0.5em;
+}
+
+.sidenav {
+  background-color: darkgrey;
+  color: orange;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav li > a {
+  font-size: 25px;
+}
+
+.sidenav li {
+  margin: 1em;
+}
+
 #home-img {
   width: 90vw;
   height: auto;
@@ -176,6 +195,9 @@ nav ul a:hover {
 }
 
 @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 2) {
+  .sidenav-overlay {
+    z-index: 3;
+  }
   #home-img {
     width: 100vw;
     margin-left: auto;
@@ -183,10 +205,15 @@ nav ul a:hover {
   #cart {
     display: flex;
     flex-direction: column;
+    margin-left: 15vw;
   }
 
   #cart-left {
     width: auto;
+  }
+
+  #order-filter {
+    margin-left: 2em;
   }
 
   #checkout-form {
@@ -196,6 +223,12 @@ nav ul a:hover {
 
   #checkout-container {
     flex-direction: column;
+  }
+
+  #checkout-box {
+    -webkit-transform: scale(1.2);
+    position: static;
+    margin: 2em 2em 2em 3em;
   }
 }
 

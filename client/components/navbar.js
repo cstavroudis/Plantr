@@ -8,6 +8,10 @@ import "materialize-css";
 
 class Navbar extends React.Component {
   componentDidMount() {
+    document.addEventListener("DOMContentLoaded", function () {
+      var elems = document.querySelectorAll(".sidenav");
+      var instances = M.Sidenav.init(elems);
+    });
     const userId = this.props.user.id;
     if (userId) {
       this.props.fetchCart(userId);
@@ -88,6 +92,15 @@ class Navbar extends React.Component {
           </nav>
 
           <ul className="sidenav" id="mobile-demo">
+            <li>
+              <Link to="/cart">
+                <button type="button" id="cart-btn">
+                  <img id="cart-img" src="https://i.imgur.com/XET9X5C.png" />
+                </button>
+                <span id="cart-count">{this.props.quantity}</span>
+              </Link>
+            </li>
+
             <li>
               <Link to="/plants">Plants</Link>
             </li>

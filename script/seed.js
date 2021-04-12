@@ -368,7 +368,7 @@ async function seed() {
     {
       name: "Fiddle Leaf Fig Tree",
       imageUrl:
-        "http://cdn.shopify.com/s/files/1/0150/6262/products/the-sill_large-fiddle-leaf-fig-bush_variant_large_hyde_black_1200x.jpg?v=1606159741",
+        "https://dy1yydbfzm05w.cloudfront.net/media/catalog/product/cache/39b52c4cabb46819553175347e38b212/f/l/flowerbx-plants-product-fiddle-leaf-fig-tall-1000px-2_5.jpg",
       description:
         "Ficus lyrata, commonly known as the fiddle-leaf fig, is a species of flowering plant in the mulberry and fig family Moraceae. It is native to western Africa, from Cameroon west to Sierra Leone, where it grows in lowland tropical rainforest. It can grow up to 12–15 m tall.",
       price: 140.0,

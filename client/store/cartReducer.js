@@ -58,7 +58,6 @@ const checkoutCart = () => {
 };
 
 const checkoutGuest = () => {
-  console.log("in checkoutGuest action creator");
   return {
     type: CHECKOUT_GUEST,
   };
@@ -148,7 +147,6 @@ export const guestCheckout = (cart, history, shippingAddress) => {
 
 export const fetchConfirmedCart = (userId) => {
   return async (dispatch) => {
-    console.log("in fetch Confirmed cart thunk");
     try {
       const { data: order } = await axios.get(
         `/api/carts/user/${userId}/confirmed`

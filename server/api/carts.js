@@ -5,7 +5,6 @@ module.exports = router;
 
 // GET api/carts/user/:id
 router.get("/user/:id", isCurrentUser, async (req, res, next) => {
-  console.log("req.user ---->", req.user);
   try {
     let cart = await Cart.findOne({
       where: {

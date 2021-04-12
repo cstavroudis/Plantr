@@ -23,7 +23,6 @@ export const setPlantsAll = (plants) => {
 };
 
 const addPlantCreator = (plant) => {
-  console.log("plant added to state:", plant);
   return {
     type: ADD_PLANT_ACTION,
     plant,

@@ -63,7 +63,6 @@ class Account extends React.Component {
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log("state.userAccount:", state.userAccount);
   return {
     user: state.userAccount.user,
     orders: state.userAccount.orders,

@@ -1,56 +1,54 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {addPlant} from '../store/allplantsReducer'
-import {getTypes} from '../store/typesReducer'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addPlant } from "../store/allplantsReducer";
+import { getTypes } from "../store/typesReducer";
 
 // COMPONENT
 
 const initialState = {
-  name: '',
-  imageUrl: '',
-  description: '',
-  inventory: '',
-  price: '',
-  light: 'direct',
-  water: 'daily',
-  humidity: 'low',
-  type: 'Calathea',
-}
+  name: "",
+  imageUrl: "",
+  description: "",
+  inventory: "",
+  price: "",
+  light: "direct",
+  water: "daily",
+  humidity: "low",
+  type: "Calathea",
+};
 
 class AddPlant extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      name: '',
-      imageUrl: '',
-      description: '',
-      inventory: '',
-      price: '',
-      light: 'direct',
-      water: 'daily',
-      humidity: 'low',
-      type: 'Calathea',
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+      name: "",
+      imageUrl: "",
+      description: "",
+      inventory: "",
+      price: "",
+      light: "direct",
+      water: "daily",
+      humidity: "low",
+      type: "Calathea",
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.props.getTypes()
+    this.props.getTypes();
   }
 
   handleChange(event) {
-    this.setState({[event.target.name]: event.target.value})
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   handleSubmit(event) {
-    event.preventDefault()
-    console.log('this.state', this.state)
+    event.preventDefault();
     const typeId = this.props.types.filter(
       (type) => type.name === this.state.type
-    )[0].id
-    console.log('this.state.type', this.state.type)
-    console.log('typeId:', typeId)
+    )[0].id;
+
     this.props.addPlant({
       name: this.state.name,
       imageUrl: this.state.imageUrl,
@@ -61,10 +59,10 @@ class AddPlant extends Component {
       inventory: Number(this.state.inventory),
       price: Number(this.state.price),
       typeId: typeId,
-    })
-    this.setState(initialState)
+    });
+    this.setState(initialState);
     // redirect to new plant's page
-    this.props.history.push('/plants')
+    this.props.history.push("/plants");
   }
 
   render() {
@@ -161,7 +159,7 @@ class AddPlant extends Component {
               name="type"
             >
               {this.props.types.map((type) => {
-                return <option key={type.id}>{type.name}</option>
+                return <option key={type.id}>{type.name}</option>;
               })}
             </select>
           </div>
@@ -170,7 +168,7 @@ class AddPlant extends Component {
           </button>
         </form>
       </div>
-    )
+    );
   }
 }
 
@@ -178,14 +176,14 @@ const mapState = (state) => {
   return {
     user: state.user,
     types: state.types.all,
-  }
-}
+  };
+};
 
 const mapDispatch = (dispatch) => {
   return {
     addPlant: (plant) => dispatch(addPlant(plant)),
     getTypes: () => dispatch(getTypes()),
-  }
-}
+  };
+};
 
-export default connect(mapState, mapDispatch)(AddPlant)
+export default connect(mapState, mapDispatch)(AddPlant);

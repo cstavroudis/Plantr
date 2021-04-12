@@ -32,7 +32,6 @@ export const getTypes = () => {
 };
 
 export const getSingleType = (typeId) => {
-  console.log("before return in thunk");
   return async (dispatch) => {
     try {
       const { data: type } = await axios.get(`/api/plants/types/${typeId}`);

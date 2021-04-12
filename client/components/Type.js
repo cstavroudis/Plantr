@@ -14,7 +14,6 @@ class Type extends Component {
   render() {
     const type = this.props.singleType;
     const plants = type.plants || [];
-    console.log("plants of type:", plants);
 
     return (
       <div className="container">

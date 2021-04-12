@@ -5,7 +5,8 @@ const HomePage = () => {
     <div>
       <img
         id="home-img"
-        src="https://img.huffingtonpost.com/asset/5a95da2e1f00002c00168a50.jpeg?ops=crop_0_1204_3761_2407%2Cscalefit_720_noupscale"
+        // src="https://img.huffingtonpost.com/asset/5a95da2e1f00002c00168a50.jpeg?ops=crop_0_1204_3761_2407%2Cscalefit_720_noupscale"
+        src="plantr_welcome--720w.jpg"
         width="100%"
       />
     </div>

@@ -159,7 +159,7 @@ async function seed() {
 
   const plants = [
     {
-      name: "Golden Angel Wing Cactus",
+      name: "Golden Angel Wing",
       imageUrl:
         "https://cdn.shopify.com/s/files/1/2198/4603/products/GoldenAngelWingCactus_BunnyEarCactus_1_1200x.jpg?v=1590507004",
       description:
@@ -232,7 +232,7 @@ async function seed() {
       typeId: calathea.id,
     },
     {
-      name: "Phalaenopsis amabilis",
+      name: "Phalaenopsis Amabilis",
       imageUrl:
         "https://allensflowers.imgix.net/images/itemVariation/WhitePhalSingle-18120375427.png?auto=format&w=375&h=450&fit=crop",
       description:
@@ -307,7 +307,8 @@ async function seed() {
     {
       name: "Humboldt’s Lily",
       imageUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0y_CxNPO8qYI3wt51hVH2IipuCPN2A5dmMQ&usqp=CAU",
+        // "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0y_CxNPO8qYI3wt51hVH2IipuCPN2A5dmMQ&usqp=CAU",
+        "https://s3.amazonaws.com/mygardenlife.com/plant-library/full/6041_41.jpg",
       description:
         "Humboldt’s Lily grows up to 6 feet tall, with flowers that are maroon-spotted, golden-orange with dark red splotches, with orange to brown stamens. The plant flowers in June, with flowers growing in a pyramidal inflorescence. The flowers are on stout stems, which are sometimes brown-purple. The subrhizomatous bulb is large, with yellowish-white scales, and grows very deep in the soil. The leaves grow in whorls, and are undulate, shiny, and oblanceolate. It is summer-deciduous, dying back after flowering in mid- to late summer.",
       price: 29.99,
@@ -475,7 +476,7 @@ async function seed() {
       quantity: 1,
       cartId: codyCompleted2.id,
       userId: cody.id,
-      plantId: plantNameObj["Golden Angel Wing Cactus"],
+      plantId: plantNameObj["Golden Angel Wing"],
     },
     {
       quantity: 2,

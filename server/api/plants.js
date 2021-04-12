@@ -53,7 +53,9 @@ router.get("/page/:pageNum", async (req, res, next) => {
 // GET api/plants/types
 router.get("/types", async (req, res, next) => {
   try {
-    const types = await Type.findAll();
+    const types = await Type.findAll({
+      order: [["name", "ASC"]],
+    });
     res.json(types);
   } catch (error) {
     next(error);

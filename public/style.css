@@ -228,7 +228,7 @@ nav ul a:hover {
   #checkout-box {
     -webkit-transform: scale(1.2);
     position: static;
-    margin: 2em 2em 2em 3em;
+    margin: 2em 2em 2em 0.5em;
   }
 }
 
